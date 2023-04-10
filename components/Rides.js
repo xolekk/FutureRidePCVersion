@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const style = {
     wrapper:`h-full flex flex-col`,
@@ -10,32 +10,35 @@ const style = {
     time:`text-xs text-blue-500`,
     container:`flex items-center`,
     price:`mr-[-0.8rem]`,
+    selected: `border-2 border-black flex p-3 m-2 items-center`,
 }
 
-const carList = [
-    {
-        name: 'Economy',
-        price: 1,
-    },
-    {
-        name: 'Premium',
-        price: 1.5,
-    },
-    {
-        name: 'Luxury',
-        price: 2,
-    },
-]
-
-const base = 154;
+const base = 1542;
 
 const Rides = () => {
+const[carList,setCarList] = useState([])
+
+useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await fetch('/api/db/getRide')
+
+        const data = await response.json()
+        setCarList(data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
+
   return (
     <div className={style.wrapper}>
         <div className={style.title}>Choose a ride, or swipe up for more</div>
         <div className={style.list}>
             {carList.map((car, index)=>(
-                <div className={style.car}>
+                <div 
+                key={index}
+                className={style.car}>
                     <div className={style.details}>
                         <div className={style.serviceType}>{car.name}</div>
                         <div className={style.time}>5 min away</div>
