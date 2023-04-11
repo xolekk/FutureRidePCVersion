@@ -1,10 +1,8 @@
 import { createContext,useState,useEffect } from "react";
 
-export const frContext = createContext()
+export const FrContext = createContext()
 
-
-
-export const frProvider = ({children}) => {
+export const FrProvider = ({children}) => {
     const[pickup,setPickup] = useState('')
     const[dropoff,setDropoff] = useState('')
     const [pickupCoords,setPickupCoords] = useState()
@@ -24,7 +22,7 @@ export const frProvider = ({children}) => {
         const data = await response.json()
 
         if(data.message = 'success'){
-            switch(locationType){
+            switch(locType){
                 case 'pickup':
                     setPickupCoords(data.data)
                     break
@@ -52,6 +50,15 @@ export const frProvider = ({children}) => {
     },[pickup,dropoff])
 
     return(
-        <frContext.Provider value={{}}>{children}</frContext.Provider>
+        <FrContext.Provider value={{
+            pickup,
+            setPickup,
+            dropoff,
+            setDropoff,
+            pickupCoords,
+            setPickupCoords,
+            dropoffCoords,
+            setDropoffCoords,
+        }}>{children}</FrContext.Provider>
     )
 }
