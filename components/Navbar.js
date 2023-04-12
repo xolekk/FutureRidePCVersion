@@ -29,7 +29,7 @@ const Navbar = () => {
       </div>
       <div className={style.rightMenu}>
         <div className={style.menuItem}>Help</div>
-        <div className={style.menuItem}>chief</div>
+        <div className={style.menuItem}>Chief</div>
         <div className={style.userImageArea}> userImage</div>
       
       {currAccount?(
