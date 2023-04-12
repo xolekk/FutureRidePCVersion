@@ -3,7 +3,7 @@ import { client } from "@/lib/sanity";
 const getUserAccount = async (req,res) => {
    try{
     const query = `
-    *[_type == "user" && wallet=="${req.query.wallet}"]{
+    *[_type == "user" && Wallet=="${req.query.Wallet}"]{
         name,
         wallet,
         "imageUrl": profileImage.asset->url

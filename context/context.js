@@ -36,9 +36,9 @@ export const FrProvider = ({children}) => {
 
             if(addressArr.length>0){
                 setCurrAccount(addressArr[0])
-                requestToCreateUserInSanity(addressArr[0])
+                requestToCreateUserOnSanity(addressArr[0])
             }
-            console.log(addressArr[0])
+            
         }catch(error){
             console.log(error)
         }
@@ -53,7 +53,7 @@ export const FrProvider = ({children}) => {
 
             if(addressArr.length>0){
                 setCurrAccount(addressArr[0])
-                requestToCreateUserInSanity(addressArr[0])
+                requestToCreateUserOnSanity(addressArr[0])
             }
 
         }catch(error){
@@ -89,33 +89,34 @@ export const FrProvider = ({children}) => {
             reject()
         }
     })
-}
+    }
+
     useEffect(()=>{
         if(pickup&&dropoff){
             ;(async()=>{
             await Promise.all([
                 createLocCoordPromise(pickup,'pickup'),
-                createLocCoordPromise(dropoff, 'dropoff')
+                createLocCoordPromise(dropoff, 'dropoff'),
             ])
         })()
     }else return
     },[pickup,dropoff])
 
 
-    const requestToCreateUserInSanity = async address => {
+    const requestToCreateUserOnSanity = async address => {
         if(!window.ethereum) return
         try{
-            await fetch('./api/db/createUserAccount',{
+            await fetch('/api/db/createUserAccount',{
                 method:'POST',
                 headers:{
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    userWalletAdress: address,
+                    userWalletAddress: address,
                     name: faker.name.fullName(),
                 }),
             })
-            
+            console.log()
         }catch(error){
             console.error(error)
         }
@@ -124,11 +125,12 @@ export const FrProvider = ({children}) => {
     const requestCurrUsersInfo = async wallet => {
     try {
       const response = await fetch(
-        `./api/db/getUserAccount?wallet=${wallet}`,
+        `./api/db/getUserAccount?Wallet=${wallet}`,
       )
 
       const data = await response.json()
       setCurrUser(data.data)
+      console.log(currUser)
     } catch (error) {
       console.error(error)
     }

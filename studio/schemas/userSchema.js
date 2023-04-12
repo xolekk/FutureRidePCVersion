@@ -18,5 +18,10 @@ export const userSchema = {
             type: 'image',
             title: 'Profile Image',
         },
+        {
+            name: 'id',
+            type: 'string',
+            title: 'ID',
+        },
     ],
 }

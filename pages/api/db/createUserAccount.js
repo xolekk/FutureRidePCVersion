@@ -1,20 +1,24 @@
 import { client } from "@/lib/sanity";
 
-const createUserInSanity = async(req,res)=> {
+const createUserOnSanity = async(req,res)=> {
+    console.log('test')
     try{
+        const id = req.body.userWalletAddress;
+
         const userDoc = {
             _type: 'user',
-            _id: req.body.userWalletAdress,
+            _id: id.slice(1),
             name: req.body.name,
-            wallet: req.body.userWalletAdress,
+            Wallet: req.body.userWalletAddress,
+            id: id.slice(1),
         }
 
-        await client.createIfNotExists(userDoc)
+        await client.createIfNotExists(userDoc).then( res.status(200).send({message: 'user doc was created' }))
         
-        res.status(200).send({message: 'success' })
+       
     }catch(error){
         res.status(500).send({message:'error',data: error.message})
     }
 }
 
-export default createUserInSanity
+export default createUserOnSanity
