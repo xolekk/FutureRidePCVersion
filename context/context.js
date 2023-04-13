@@ -12,6 +12,7 @@ export const FrProvider = ({children}) => {
     const[currUser, setCurrUser] = useState([])
     const[selectedRideType, setSelectedRideType] = useState([])
     const[price,setPrice] = useState()
+    const [basePrice, setBasePrice] = useState()
 
     let metamask
 
@@ -28,6 +29,28 @@ export const FrProvider = ({children}) => {
         requestCurrUsersInfo(currAccount)
     }, [currAccount])
 
+    useEffect(()=>{
+        if(!pickupCoords || !dropoffCoords) return
+        ;(async () => {
+            try{
+                const respone = await fetch('/api/map/getDuration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pickupCoords: `${pickupCoords[0]},${pickupCoords[1]}`,
+                        dropoffCoords: `${dropoffCoords[0]},${dropoffCoords[1]}`,
+                    })
+                })
+
+                const data = await respone.json()
+                setBasePrice(Math.round(await data.data))
+            }catch(error){
+                console.error(error)
+            }
+        })
+    }, [pickupCoords,dropoffCoords])
 
     const isWalletConnected = async () => {
         if(!window.ethereum) return
@@ -157,6 +180,8 @@ export const FrProvider = ({children}) => {
             selectedRideType,
             setSelectedRideType,
             metamask,
+            basePrice,
+            setBasePrice,
         }}>{children}</FrContext.Provider>
     )
 }

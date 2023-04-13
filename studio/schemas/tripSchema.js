@@ -4,14 +4,14 @@ export const tripSchema={
     title:'Trips',
     fields:[
         {
-            name:'dropoff',
-            type:'string',
-            title:'Drop off',
-        },
-        {
             name:'pickup',
             type:'string',
             title:'Pick up',
+        },
+        {
+            name:'dropoff',
+            type:'string',
+            title:'Drop off',
         },
         {
             name:'rideType',

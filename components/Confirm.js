@@ -11,7 +11,7 @@ const style = {
 }
 
 const Confirm = () => {
-    const{currAccount,pickup,dropoff,price,selectedRideType} = useContext(FrContext)
+    const{currAccount,pickup,dropoff,price,selectedRideType, pickupCoords, dropoffCoords} = useContext(FrContext)
 
     var userWallet
 
@@ -40,7 +40,7 @@ const Confirm = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.rideSelect}>
-        <Rides/>
+       {pickupCoords && dropoffCoords && <Rides/>}
       </div>
       <div className={style.confirmContainer}>
         <div className={style.confirmContainer}>

@@ -29,11 +29,7 @@ const Map = () => {
         addToMap(map,dropoffCoords)
     }
 
-    if(pickupCoords&&dropoffCoords){
-        map.fitBounds([dropoffCoords,pickupCoords],{
-            padding: 400,
-        })
-    }
+    
     },[pickupCoords,dropoffCoords])
 
     const addToMap=(map,coordinates) => {
