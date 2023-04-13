@@ -9,7 +9,9 @@ export const FrProvider = ({children}) => {
     const [pickupCoords,setPickupCoords] = useState()
     const[dropoffCoords,setDropoffCoords] = useState()
     const[currAccount, setCurrAccount] = useState()
-    const[currUser, setCurrUser] = useState()
+    const[currUser, setCurrUser] = useState([])
+    const[selectedRideType, setSelectedRideType] = useState([])
+    const[price,setPrice] = useState()
 
     let metamask
 
@@ -150,6 +152,10 @@ export const FrProvider = ({children}) => {
             connectWallet,
             currAccount,
             currUser,
+            price,
+            setPrice,
+            selectedRideType,
+            setSelectedRideType,
             metamask,
         }}>{children}</FrContext.Provider>
     )

@@ -48,7 +48,7 @@ const SelectLocation = () => {
             <div className={style.verticalLine}/>
             <div
             className={`${style.box} ${
-                inFocus === 'from' && style.focus
+                inFocus === 'to' && style.focus
             }`}
             >
                 <div className={style.svg}>

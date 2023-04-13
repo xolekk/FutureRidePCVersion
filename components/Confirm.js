@@ -1,5 +1,7 @@
 import React from 'react'
 import Rides from './Rides'
+import { useContext } from 'react'
+import { FrContext } from '@/context/context'
 
 const style = {
     wrapper:`flex-1 h-full flex flex-col justify-between`,
@@ -9,7 +11,31 @@ const style = {
 }
 
 const Confirm = () => {
-    const storeDetails = async () => {}
+    const{currAccount,pickup,dropoff,price,selectedRideType} = useContext(FrContext)
+
+    var userWallet
+
+ 
+
+    const storeDetails = async (pickup,dropoff) => {
+      try{
+        await fetch('/api/db/saveTripDetails',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pickupLoc: pickup,
+            dropoffLoc: dropoff,
+            userWallet: currAccount,
+            price: price,
+            selectedRideType: selectedRideType,
+          }),
+        })
+      }catch(error){
+        console.error(error)
+      }
+    }
 
   return (
     <div className={style.wrapper}>
@@ -20,8 +46,8 @@ const Confirm = () => {
         <div className={style.confirmContainer}>
             <div 
             className={style.button}
-            onClick={()=>storeDetails()}
-            >Confirm Economy</div>
+            onClick={()=>storeDetails(pickup,dropoff)}
+            >Confirm {selectedRideType.name}</div>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import { FrContext } from '@/context/context';
+import React, { useContext, useEffect, useState } from 'react'
 
 const style = {
     wrapper:`h-full flex flex-col`,
@@ -16,7 +17,10 @@ const style = {
 const base = 1542;
 
 const Rides = () => {
-const[carList,setCarList] = useState([])
+  const[carList,setCarList] = useState([])
+  const{selectedRideType, setSelectedRideType, setPrice, price} = useContext(FrContext)
+
+console.log(price)
 
 useEffect(() => {
     ;(async () => {
@@ -25,6 +29,7 @@ useEffect(() => {
 
         const data = await response.json()
         setCarList(data.data)
+        setSelectedRideType(data.data[0])
       } catch (error) {
         console.error(error)
       }
@@ -38,7 +43,16 @@ useEffect(() => {
             {carList.map((car, index)=>(
                 <div 
                 key={index}
-                className={style.car}>
+                className={`${
+                  selectedRideType.name === car.name
+                  ? style.selected
+                  : style.car
+                }`}
+                onClick={()=>{
+                  setSelectedRideType(car)
+                  setPrice(((base/10**5)*5*car.price).toFixed(5))
+                }}
+                >
                     <div className={style.details}>
                         <div className={style.serviceType}>{car.name}</div>
                         <div className={style.time}>5 min away</div>
