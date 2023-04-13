@@ -18,7 +18,7 @@ const base = 1542;
 
 const Rides = () => {
   const[carList,setCarList] = useState([])
-  const{selectedRideType, setSelectedRideType, setPrice, price} = useContext(FrContext)
+  const{selectedRideType, setSelectedRideType, setPrice, basePrice,} = useContext(FrContext)
 
 console.log(price)
 
