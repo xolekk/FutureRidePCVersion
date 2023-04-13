@@ -20,7 +20,6 @@ const Rides = () => {
   const[carList,setCarList] = useState([])
   const{selectedRideType, setSelectedRideType, setPrice, basePrice,} = useContext(FrContext)
 
-console.log(price)
 
 useEffect(() => {
     ;(async () => {
