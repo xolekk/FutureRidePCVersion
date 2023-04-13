@@ -9,7 +9,7 @@ const createUserOnSanity = async(req,res)=> {
             _type: 'user',
             _id: id.slice(1),
             name: req.body.name,
-            Wallet: req.body.userWalletAddress,
+            wallet: req.body.userWalletAddress,
             id: id.slice(1),
         }
 

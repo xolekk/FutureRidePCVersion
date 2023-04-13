@@ -19,6 +19,19 @@ const style ={
 const Navbar = () => {
   const {currAccount,connectWallet,currUser} = useContext(FrContext)
 
+  var name = ''
+  var image
+  if(currUser !== undefined){
+    name = currUser.name
+    if(currUser.image !== null){
+      image = currUser.image
+    } else{
+      image = ' '
+    }
+  } else{
+    name = ' '
+  }
+
   return (
     <div className={style.wrapper}>
       <div className={style.leftMenu}>
@@ -29,8 +42,10 @@ const Navbar = () => {
       </div>
       <div className={style.rightMenu}>
         <div className={style.menuItem}>Help</div>
-        <div className={style.menuItem}>Chief</div>
-        <div className={style.userImageArea}> userImage</div>
+        <div className={style.menuItem}>
+          {name}
+          </div>
+        <div className={style.userImageArea}>{image}</div>
       
       {currAccount?(
         <div>{currAccount.slice(0,6)}...{currAccount.slice(39)}</div>

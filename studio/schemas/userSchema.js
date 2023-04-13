@@ -11,7 +11,7 @@ export const userSchema = {
         {
             name:'wallet',
             type:'string',
-            name:'Wallet',
+            title:'Crypto Wallet',
         },
         {
             name: 'profile_image',

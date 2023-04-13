@@ -3,9 +3,9 @@ import { client } from "@/lib/sanity";
 const getUserAccount = async (req,res) => {
    try{
     const query = `
-    *[_type == "user" && Wallet=="${req.query.wallet}"]{
+    *[_type == "user" && wallet=="${req.query.wallet}"]{
         name,
-        Wallet,
+        wallet,
         "imageUrl": profileImage.asset->url
     }
     `

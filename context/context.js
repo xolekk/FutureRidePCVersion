@@ -125,12 +125,13 @@ export const FrProvider = ({children}) => {
     const requestCurrUsersInfo = async wallet => {
     try {
       const response = await fetch(
-        `/api/db/getUserAccount?Wallet=${wallet}`,
+        `/api/db/getUserAccount?wallet=${wallet}`,
       )
 
       const data = await response.json()
       setCurrUser(data.data)
       console.log(currUser)
+
     } catch (error) {
       console.error(error)
     }
