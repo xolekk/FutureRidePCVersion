@@ -2,6 +2,7 @@ import React from 'react'
 import Rides from './Rides'
 import { useContext } from 'react'
 import { FrContext } from '@/context/context'
+import { ethers } from 'ethers'
 
 const style = {
     wrapper:`flex-1 h-full flex flex-col justify-between`,
@@ -11,7 +12,7 @@ const style = {
 }
 
 const Confirm = () => {
-    const{currAccount,pickup,dropoff,price,selectedRideType, pickupCoords, dropoffCoords} = useContext(FrContext)
+    const{currAccount,pickup,dropoff,price,selectedRideType, pickupCoords, dropoffCoords, metamask} = useContext(FrContext)
 
     var userWallet
 
@@ -32,9 +33,23 @@ const Confirm = () => {
             selectedRideType: selectedRideType,
           }),
         })
+
+        await metamask.request({
+          method: 'eth_sendTransaction',
+          params: [
+            {
+              from: currAccount,
+              to: process.env.NEXT_PUBLIC_WALLET_ADDRESS,
+              gas: '0x7EF40',
+              value: ethers.utils.parseEther(price)._hex,
+            },
+          ],
+        })
+
       }catch(error){
         console.error(error)
       }
+
     }
 
   return (

@@ -50,6 +50,7 @@ useEffect(() => {
                 onClick={()=>{
                   setSelectedRideType(car)
                   setPrice(((base/10**5)*5*car.price).toFixed(5))
+                  console.log(process.env.NEXT_PUBLIC_MAPBOX_DIRECTIONS_API_URL)
                 }}
                 >
                     <div className={style.details}>

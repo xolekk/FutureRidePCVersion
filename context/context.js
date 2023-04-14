@@ -29,28 +29,28 @@ export const FrProvider = ({children}) => {
         requestCurrUsersInfo(currAccount)
     }, [currAccount])
 
-    useEffect(()=>{
-        if(!pickupCoords || !dropoffCoords) return
-        ;(async () => {
-            try{
-                const respone = await fetch('/api/map/getDuration', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        pickupCoords: `${pickupCoords[0]},${pickupCoords[1]}`,
-                        dropoffCoords: `${dropoffCoords[0]},${dropoffCoords[1]}`,
-                    })
-                })
-
-                const data = await respone.json()
-                setBasePrice(Math.round(await data.data))
-            }catch(error){
-                console.error(error)
-            }
+   useEffect(() => {
+    if (!pickupCoords || !dropoffCoords) return
+    ;(async () => {
+      try {
+        const response = await fetch('./api/map/getDuration', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pickupCoords: `${pickupCoords[0]},${pickupCoords[1]}`,
+            dropoffCoords: `${dropoffCoords[0]},${dropoffCoords[1]}`,
+          }),
         })
-    }, [pickupCoords,dropoffCoords])
+
+        const data = await response.json()
+        setBasePrice(Math.round(await data.data))
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [pickupCoords, dropoffCoords])
 
     const isWalletConnected = async () => {
         if(!window.ethereum) return
@@ -89,6 +89,7 @@ export const FrProvider = ({children}) => {
 
     const createLocCoordPromise = (locName,locType) => {
     return new Promise(async(resolve,reject)=>{
+        try{
         const response = await fetch('./api/map/getLocation',{
             method: 'POST',
             headers:{
@@ -113,6 +114,10 @@ export const FrProvider = ({children}) => {
         }else{
             reject()
         }
+    }catch(error){
+        console.error(error)
+        reject()
+    }
     })
     }
 
@@ -155,8 +160,6 @@ export const FrProvider = ({children}) => {
 
       const data = await response.json()
       setCurrUser(data.data)
-      console.log(currUser)
-
     } catch (error) {
       console.error(error)
     }

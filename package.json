@@ -11,6 +11,7 @@
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
     "@sanity/client": "^5.4.2",
+    "ethers": "^6.3.0",
     "mapbox-gl": "^2.13.0",
     "metamask": "0.0.1-security",
     "next": "13.3.0",

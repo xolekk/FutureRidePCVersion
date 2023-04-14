@@ -29,7 +29,6 @@ const Map = () => {
         addToMap(map,dropoffCoords)
     }
 
-    
     },[pickupCoords,dropoffCoords])
 
     const addToMap=(map,coordinates) => {
