@@ -41,7 +41,7 @@ const Confirm = () => {
               from: currAccount,
               to: process.env.NEXT_PUBLIC_WALLET_ADDRESS,
               gas: '0x7EF40',
-              value: ethers.utils.parseEther(price)._hex,
+              value: Number(price * 1e18).toString(16),
             },
           ],
         })
@@ -61,7 +61,9 @@ const Confirm = () => {
         <div className={style.confirmContainer}>
             <div 
             className={style.button}
-            onClick={()=>storeDetails(pickup,dropoff)}
+            onClick={()=>{
+              storeDetails(pickup,dropoff)
+               console.log(price)}}
             >Confirm {selectedRideType.name}</div>
         </div>
       </div>

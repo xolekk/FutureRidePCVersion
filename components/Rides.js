@@ -50,8 +50,6 @@ useEffect(() => {
                 onClick={()=>{
                   setSelectedRideType(car)
                   setPrice(((basePrice/10**5)*5*car.price).toFixed(5))
-                  console.log(pickupCoords)
-                  console.log(dropoffCoords)
                 }}
                 >
                     <div className={style.details}>
