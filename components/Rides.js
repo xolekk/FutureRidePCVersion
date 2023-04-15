@@ -18,7 +18,7 @@ const base = 1542;
 
 const Rides = () => {
   const[carList,setCarList] = useState([])
-  const{selectedRideType, setSelectedRideType, setPrice, basePrice,} = useContext(FrContext)
+  const{selectedRideType, setSelectedRideType, setPrice, basePrice, pickupCoords, dropoffCoords} = useContext(FrContext)
 
 
 useEffect(() => {
@@ -49,8 +49,9 @@ useEffect(() => {
                 }`}
                 onClick={()=>{
                   setSelectedRideType(car)
-                  setPrice(((base/10**5)*5*car.price).toFixed(5))
-                  console.log(process.env.NEXT_PUBLIC_MAPBOX_DIRECTIONS_API_URL)
+                  setPrice(((basePrice/10**5)*5*car.price).toFixed(5))
+                  console.log(pickupCoords)
+                  console.log(dropoffCoords)
                 }}
                 >
                     <div className={style.details}>
@@ -58,7 +59,7 @@ useEffect(() => {
                         <div className={style.time}>5 min away</div>
                     </div>
                     <div className={style.container}>
-                        <div className={style.price}>{((base/10**5)*5*car.price).toFixed(5)}</div>
+                        <div className={style.price}>{((basePrice/10**5)*5*car.price).toFixed(5)}</div>
                     </div>
                 </div>
             ))}

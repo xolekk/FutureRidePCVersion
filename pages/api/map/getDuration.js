@@ -1,5 +1,5 @@
 const getDuration = async (req, res) => {
-  const mapboxUrl = `${process.env.NEXT_PUBLIC_MAPBOX_DIRECTIONS_API_URL}/${req.body.pickupCoords};${req.body.dropoffCoords}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`
+  const mapboxUrl = `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${req.body.pickupCoords};${req.body.dropoffCoords}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`
 
   try {
     const response = await fetch(mapboxUrl)
