@@ -13,6 +13,7 @@ export const FrProvider = ({children}) => {
     const[selectedRideType, setSelectedRideType] = useState([])
     const[price,setPrice] = useState()
     const [basePrice, setBasePrice] = useState()
+    const [tripReq, setTripReq] = useState([])
 
     let metamask
 
@@ -51,6 +52,21 @@ export const FrProvider = ({children}) => {
       }
     })()
   }, [pickupCoords, dropoffCoords])
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const response = await fetch('/api/db/getTrips')
+
+        const data = await response.json()
+        setTripReq(data.data)
+        console.log(data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    })()
+  }, [])
+
 
     const isWalletConnected = async () => {
         if(!window.ethereum) return
@@ -185,6 +201,8 @@ export const FrProvider = ({children}) => {
             metamask,
             basePrice,
             setBasePrice,
+            tripReq,
+            setTripReq,
         }}>{children}</FrContext.Provider>
     )
 }

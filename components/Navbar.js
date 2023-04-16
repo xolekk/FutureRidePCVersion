@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { BsPerson } from 'react-icons/bs'
 import { FrContext } from '@/context/context'
 import { useContext } from 'react'
+import Link from 'next/link'
 
 const style ={
     wrapper:`h-16 w-full bg-purple-800 text-white flex md:justify-around items-center px-60 fixed z-20`,
@@ -35,13 +36,12 @@ const Navbar = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.leftMenu}>
-        <div className={style.logo}>FutureRide</div>
-        <div className={style.menuItem}>Ride</div>
-        <div className={style.menuItem}>Drive</div>
-        <div className={style.menuItem}> More</div>
+        <div className={style.logo}><Link href="/">FutureRide</Link></div>
+        <div className={style.menuItem}><Link href="/">Ride</Link></div>
+        <div className={style.menuItem}><Link href="/drive">Drive</Link></div>
       </div>
       <div className={style.rightMenu}>
-        <div className={style.menuItem}>Help</div>
+        <div className={style.menuItem}><Link href="/help">Help</Link></div>
         <div className={style.menuItem}>
           {name}
           </div>
