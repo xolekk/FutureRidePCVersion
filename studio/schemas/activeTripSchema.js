@@ -31,7 +31,7 @@ export const activeTripSchema={
         {
             name: 'driverWallet',
             type: 'string',
-            title: 'Driver Wallet'
+            title: 'Driver Wallet',
         },
     ]
 }

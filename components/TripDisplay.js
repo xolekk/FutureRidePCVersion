@@ -2,17 +2,37 @@ import { FrContext } from "@/context/context"
 import { useContext } from "react"
 import { useState } from "react"
 
-const style={
-
-}
+  
 
 const TripDisplay = () =>{
-    const {tripReq} = useContext(FrContext)
+    const {tripReq,currUser} = useContext(FrContext)
     const [selectedTrip, setSelectedTrip] = useState(null);
 
   const handleTripSelect = (index) => {
     setSelectedTrip(index);
   };
+
+const createActiveTrip = async selectedTrip =>{
+  console.log(currUser.wallet)
+    try{
+      await fetch('./api/db/createActiveTrip'),{
+        method:'Post',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pickupLoc: tripReq[selectedTrip].pickup,
+          dropoffLoc: tripReq[selectedTrip].dropoff,
+          price: tripReq[selectedTrip].price,
+          rideType: tripReq[selectedTrip].rideType,
+          passengerWallet: tripReq[selectedTrip].passenger.wallet,
+          driverWallet: currUser.wallet,
+        }),
+      }
+    }catch(error){
+      console.error(error)
+    }
+  }
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -37,7 +57,13 @@ const TripDisplay = () =>{
               </div>
               <div className="flex items-center ml-3">
                 <p className="text-sm font-medium text-gray-500">
-                  Price: {trip.price} Type: {trip.rideType} User: {trip.passenger.wallet}
+                  Price: {trip.price}
+                </p>
+                <p className="text-sm font-medium text-gray-500">
+                  Type: {trip.rideType}
+                </p>
+                <p className="text-sm font-medium text-gray-500">
+                  User: {trip.passenger.wallet}
                 </p>
               </div>
             </div>
@@ -45,7 +71,10 @@ const TripDisplay = () =>{
         ))}
       </ul>
       {selectedTrip !== null && (
-        <button className="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+        <button 
+        className="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+        onClick={()=>createActiveTrip(selectedTrip)}
+        >
           Confirm Selection
         </button>
       )}
