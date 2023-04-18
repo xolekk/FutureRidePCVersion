@@ -15,15 +15,15 @@ const TripDisplay = () =>{
   };
 
   return (
-    <div class="flex flex-col justify-center items-center h-screen">
-      <ul class="w-full max-w-lg divide-y divide-purple-200">
+    <div className="flex flex-col justify-center items-center h-screen">
+      <ul className="w-full max-w-lg divide-y divide-purple-200">
         {tripReq.map((trip, index) => (
-          <li key={index} class="py-4">
-            <div class="flex flex-col">
-              <div class="flex items-center">
-                <div class="ml-3">
+          <li key={index} className="py-4">
+            <div className="flex flex-col">
+              <div className="flex items-center">
+                <div className="ml-3">
                   <button
-                    class={`text-base font-medium ${
+                    className={`text-base font-medium ${
                       selectedTrip === index
                         ? "text-purple-600"
                         : "text-gray-900"
@@ -33,11 +33,11 @@ const TripDisplay = () =>{
                     {trip.pickup} - {trip.dropoff}
                   </button>
                 </div>
-                <div class="flex-grow"></div>
+                <div className="flex-grow"></div>
               </div>
-              <div class="flex items-center ml-3">
-                <p class="text-sm font-medium text-gray-500">
-                  Price: {trip.price} Type: {trip.rideType}
+              <div className="flex items-center ml-3">
+                <p className="text-sm font-medium text-gray-500">
+                  Price: {trip.price} Type: {trip.rideType} User: {trip.passenger.wallet}
                 </p>
               </div>
             </div>
@@ -45,7 +45,7 @@ const TripDisplay = () =>{
         ))}
       </ul>
       {selectedTrip !== null && (
-        <button class="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+        <button className="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
           Confirm Selection
         </button>
       )}

@@ -1,7 +1,7 @@
 import { client } from "@/lib/sanity";
 
 const createUserOnSanity = async(req,res)=> {
-    console.log('test')
+
     try{
         const id = req.body.userWalletAddress;
 

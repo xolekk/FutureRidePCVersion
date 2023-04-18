@@ -6,6 +6,9 @@ const query = `
         dropoff,
         rideType,
         price,
+        passenger->{
+        wallet,
+        },
     }
 `
 

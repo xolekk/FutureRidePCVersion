@@ -2,6 +2,8 @@ import Navbar from "@/components/Navbar"
 import Map from "@/components/Map"
 import SelectLocation from "@/components/SelectLocation"
 import Confirm from "@/components/Confirm"
+import { useContext } from "react"
+import { FrContext } from "@/context/context"
 
 const style ={
   wrapper: `h-screen w-screen flex flex-col`,
@@ -11,17 +13,25 @@ const style ={
 }
 
 export default function Home() {
+  const{currAccount} = useContext(FrContext)
+
+
   return (
    <div className={style.wrapper}>
     <Navbar />
     <div className={style.main}>
       <Map />
     </div>
+
     <div className={style.rideRequestContainer}>
-        <div className={style.rideRequest}>
+        {currAccount?(<div className={style.rideRequest}>
         <SelectLocation/>
         <Confirm/>
-        </div>
+        </div>):(
+          <div className={style.rideRequest}>
+            Please log in!
+          </div>
+        )}
       </div>
     </div>
   )
