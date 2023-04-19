@@ -7,7 +7,7 @@ import { client } from "@/lib/sanity"
 const TripDisplay = () =>{
     const {tripReq,currUser} = useContext(FrContext)
     const [selectedTrip, setSelectedTrip] = useState(null);
-    var tripId = 0x3987bbfeec0a223c654bc6d2d52f180955f2ef96-1681925094972;
+
 
   const handleTripSelect = (index) => {
     setSelectedTrip(index);

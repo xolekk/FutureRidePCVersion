@@ -14,6 +14,7 @@ export const FrProvider = ({children}) => {
     const[price,setPrice] = useState()
     const [basePrice, setBasePrice] = useState()
     const [tripReq, setTripReq] = useState([])
+    const [activeTrips, setActiveTrips] = useState([])
 
     let metamask
 
@@ -23,11 +24,14 @@ export const FrProvider = ({children}) => {
 
     useEffect(()=>{
         isWalletConnected()
+
     }, [])
 
     useEffect(()=>{
         if(!currAccount) return
         requestCurrUsersInfo(currAccount)
+        requestCurrUserActiveTrips(currAccount)
+        console.log(activeTrips)
     }, [currAccount])
 
    useEffect(() => {
@@ -60,7 +64,6 @@ export const FrProvider = ({children}) => {
 
         const data = await response.json()
         setTripReq(data.data)
-        console.log(data.data)
       } catch (error) {
         console.error(error)
       }
@@ -169,17 +172,33 @@ export const FrProvider = ({children}) => {
     }
 
     const requestCurrUsersInfo = async wallet => {
-    try {
-      const response = await fetch(
-        `/api/db/getUserAccount?wallet=${wallet}`,
-      )
+        try {
+            const response = await fetch(
+                `/api/db/getUserAccount?wallet=${wallet}`,
+            )
 
-      const data = await response.json()
-      setCurrUser(data.data)
-    } catch (error) {
-      console.error(error)
+            const data = await response.json()
+            setCurrUser(data.data)
+        } catch (error) {
+            console.error(error)
+        }
     }
-  }
+
+    var dataArr;
+    const requestCurrUserActiveTrips = async passengerWallet => {
+        try{
+            const response = await fetch(
+                `/api/db/getActiveTrips`,
+            )
+
+            const data = await response.json()
+            setActiveTrips(data.data)
+             
+        }catch(error){
+            console.error(error)
+        }
+    }
+  
 
     return(
         <FrContext.Provider value={{
@@ -203,6 +222,8 @@ export const FrProvider = ({children}) => {
             setBasePrice,
             tripReq,
             setTripReq,
+            activeTrips,
+            setActiveTrips,
         }}>{children}</FrContext.Provider>
     )
 }
