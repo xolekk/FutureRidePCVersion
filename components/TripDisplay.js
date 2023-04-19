@@ -1,7 +1,7 @@
 import { FrContext } from "@/context/context"
 import { useContext } from "react"
 import { useState } from "react"
-import { client } from "@/lib/sanity"
+
   
 
 const TripDisplay = () =>{
@@ -30,16 +30,6 @@ const createActiveTrip = async () =>{
           driverWallet: currUser.wallet,
         }),
       })
-    }catch(error){
-      console.error(error)
-    }
-  }
-
-  const deleteFromTripList = async () =>{
-    const query = `*[_type == "trip"][${selectedTrip}]._id`
-    const sanityResponse = await client.fetch(query)
-    try{
-    client.delete(sanityResponse)
     }catch(error){
       console.error(error)
     }
