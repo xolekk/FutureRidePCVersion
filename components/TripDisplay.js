@@ -12,10 +12,10 @@ const TripDisplay = () =>{
     setSelectedTrip(index);
   };
 
-const createActiveTrip = async selectedTrip =>{
-  console.log(currUser.wallet)
+const createActiveTrip = async () =>{
+  
     try{
-      await fetch('./api/db/createActiveTrip'),{
+      await fetch('./api/db/createActiveTrip',{
         method:'Post',
         headers:{
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ const createActiveTrip = async selectedTrip =>{
           passengerWallet: tripReq[selectedTrip].passenger.wallet,
           driverWallet: currUser.wallet,
         }),
-      }
+      })
     }catch(error){
       console.error(error)
     }
@@ -73,7 +73,7 @@ const createActiveTrip = async selectedTrip =>{
       {selectedTrip !== null && (
         <button 
         className="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-        onClick={()=>createActiveTrip(selectedTrip)}
+        onClick={()=>createActiveTrip()}
         >
           Confirm Selection
         </button>
