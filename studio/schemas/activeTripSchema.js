@@ -33,5 +33,10 @@ export const activeTripSchema={
             type: 'string',
             title: 'Driver Wallet',
         },
+        {
+            name: 'isFinished',
+            type: 'boolean',
+            title: 'Is trip finished'
+        }
     ]
 }

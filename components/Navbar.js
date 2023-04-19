@@ -42,9 +42,7 @@ const Navbar = () => {
       </div>
       <div className={style.rightMenu}>
         <div className={style.menuItem}><Link href="/help">Help</Link></div>
-        <div className={style.menuItem}>
-          {name}
-          </div>
+        <div className={style.menuItem}><Link href="/account">{name}</Link></div>
         <div className={style.userImageArea}>{image}</div>
       
       {currAccount?(
