@@ -1,5 +1,5 @@
 import { FrContext } from "@/context/context"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useState } from "react"
 import { client } from "@/lib/sanity"
   
@@ -8,12 +8,25 @@ const ActiveTripDisplay = () =>{
     const {currUser, activeTrips, metamask, currAccount} = useContext(FrContext)
      const [selectedTrip, setSelectedTrip] = useState(null);
 
+     var isDriver
 
   const handleTripSelect = (index) => {
     setSelectedTrip(index);
+    
   };
 
+  useEffect(()=>{
+    if(!activeTrips[selectedTrip]) return
+    console.log(activeTrips[selectedTrip].driverWallet)
+    if(currAccount === activeTrips[selectedTrip].driverWallet){
+      isDriver = true 
+    }else{
+      isDriver = false
+    }
+  },[selectedTrip])
+
   const proccessPayment = async () =>{
+    if(isDriver === false){
     try{
       await metamask.request({
           method: 'eth_sendTransaction',
@@ -28,6 +41,9 @@ const ActiveTripDisplay = () =>{
         })
     }catch(error){
       console.error(error)
+    }
+    }else{
+      console.log('Transaction requested!')
     }
   }
 

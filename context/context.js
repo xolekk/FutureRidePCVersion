@@ -15,6 +15,7 @@ export const FrProvider = ({children}) => {
     const [basePrice, setBasePrice] = useState()
     const [tripReq, setTripReq] = useState([])
     const [activeTrips, setActiveTrips] = useState([])
+    const [isDriver,setIsDriver] = useState('')
 
     let metamask
 
@@ -36,6 +37,11 @@ export const FrProvider = ({children}) => {
     useEffect(()=>{
         if(!currAccount) return
         requestCurrUserActiveTrips(currAccount)
+        console.log(activeTrips)
+    },[currAccount])
+    useEffect(()=>{
+        if(!currAccount) return
+        requestCurrUserActiveTripsDriver(currAccount)
         console.log(activeTrips)
     },[currAccount])
 
@@ -189,7 +195,6 @@ export const FrProvider = ({children}) => {
         }
     }
 
-    var dataArr;
     const requestCurrUserActiveTrips = async passengerWallet => {
         console.log(passengerWallet)
         try{
@@ -198,13 +203,28 @@ export const FrProvider = ({children}) => {
             )
 
             const data = await response.json()
+            if(data.data !== undefined){
             setActiveTrips(data.data)
-             
+            }
         }catch(error){
             console.error(error)
         }
     }
-  
+    const requestCurrUserActiveTripsDriver = async driverWallet => {
+        console.log(driverWallet)
+        try{
+            const response = await fetch(
+                `/api/db/getActiveTripsDriver?driverWallet=${driverWallet}`,
+            )
+
+            const data = await response.json()
+            if(data.data !== undefined){
+            setActiveTrips(data.data)
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
 
     return(
         <FrContext.Provider value={{
