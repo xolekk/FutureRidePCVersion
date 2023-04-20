@@ -1,7 +1,7 @@
 import { FrContext } from "@/context/context"
 import { useContext } from "react"
 import { useState } from "react"
-
+import { client } from "@/lib/sanity"
   
 
 const TripDisplay = () =>{
@@ -12,6 +12,17 @@ const TripDisplay = () =>{
   const handleTripSelect = (index) => {
     setSelectedTrip(index);
   };
+
+
+const deleteFromTripList = async () =>{
+  const query = `*[_type == "trip"][${selectedTrip}]._id`
+  const sanityResponse = await client.fetch(query)
+  try{
+    client.delete(sanityResponse)
+  }catch(error){
+    console.error(error)
+  }
+}
 
 const createActiveTrip = async () =>{
   
@@ -74,7 +85,7 @@ const createActiveTrip = async () =>{
       {selectedTrip !== null && (
         <button 
         className="mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
-        onClick={()=>{createActiveTrip()}}
+        onClick={()=>{createActiveTrip(); deleteFromTripList()}}
         >
           Confirm Selection
         </button>
