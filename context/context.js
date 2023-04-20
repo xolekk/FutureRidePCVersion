@@ -30,9 +30,14 @@ export const FrProvider = ({children}) => {
     useEffect(()=>{
         if(!currAccount) return
         requestCurrUsersInfo(currAccount)
+        
+    }, [currAccount])
+
+    useEffect(()=>{
+        if(!currAccount) return
         requestCurrUserActiveTrips(currAccount)
         console.log(activeTrips)
-    }, [currAccount])
+    },[currAccount])
 
    useEffect(() => {
     if (!pickupCoords || !dropoffCoords) return
@@ -186,9 +191,10 @@ export const FrProvider = ({children}) => {
 
     var dataArr;
     const requestCurrUserActiveTrips = async passengerWallet => {
+        console.log(passengerWallet)
         try{
             const response = await fetch(
-                `/api/db/getActiveTrips`,
+                `/api/db/getActiveTrips?passengerWallet=${passengerWallet}`,
             )
 
             const data = await response.json()

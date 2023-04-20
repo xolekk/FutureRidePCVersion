@@ -34,17 +34,7 @@ const Confirm = () => {
           }),
         })
 
-        await metamask.request({
-          method: 'eth_sendTransaction',
-          params: [
-            {
-              from: currAccount,
-              to: process.env.NEXT_PUBLIC_WALLET_ADDRESS,
-              gas: '0x7EF40',
-              value: Number(price * 1e18).toString(16),
-            },
-          ],
-        })
+       
 
       }catch(error){
         console.error(error)

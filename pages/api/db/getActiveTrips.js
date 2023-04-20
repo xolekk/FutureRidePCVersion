@@ -4,7 +4,7 @@ const getActiveTrips = async (req, res) => {
 
   try {
     const query = `
-    *[_type == "activeTrip"]
+    *[_type == "activeTrip" && passengerWallet == "${req.query.passengerWallet}"]
     `
     const sanityResponse = await client.fetch(query)
     

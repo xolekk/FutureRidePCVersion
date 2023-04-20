@@ -11,7 +11,7 @@ export default function help(){
         <div className={style.wrapper}>
             <Navbar/>
             <div className={style.list}>
-                
+               <ActiveTripDisplay/>
             </div>
         </div>
     )
