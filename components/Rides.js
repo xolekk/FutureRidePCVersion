@@ -2,15 +2,7 @@ import { FrContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react'
 
 const style = {
-    wrapper:`h-full flex flex-col`,
-    title:`text-gray-500 text-center text-xs py-2 border-b`,
-    list:`flex flex-col flex-1 overflow-scroll`,
     car:`flex p-3 m-2 items-center border-2 border-white`,
-    details:`ml-2 flex-1`,
-    setviceType:`font-medium`,
-    time:`text-xs text-blue-500`,
-    container:`flex items-center`,
-    price:`mr-[-0.8rem]`,
     selected: `border-2 border-black flex p-3 m-2 items-center`,
 }
 
@@ -36,9 +28,9 @@ useEffect(() => {
   }, [])
 
   return (
-    <div className={style.wrapper}>
-        <div className={style.title}>Choose a ride, or swipe up for more</div>
-        <div className={style.list}>
+    <div className="h-full flex flex-col">
+        <div className="text-gray-500 text-center text-xs py-2 border-b">Choose a ride, or swipe up for more</div>
+        <div className="flex flex-col flex-1 overflow-scroll">
             {carList.map((car, index)=>(
                 <div 
                 key={index}
@@ -52,12 +44,12 @@ useEffect(() => {
                   setPrice(((basePrice/10**5)*5*car.price).toFixed(5))
                 }}
                 >
-                    <div className={style.details}>
-                        <div className={style.serviceType}>{car.name}</div>
-                        <div className={style.time}>5 min away</div>
+                    <div className="ml-2 flex-1">
+                        <div className="font-medium">{car.name}</div>
+                        <div className="text-xs text-purple-500">5 min away</div>
                     </div>
-                    <div className={style.container}>
-                        <div className={style.price}>{((basePrice/10**5)*5*car.price).toFixed(5)}</div>
+                    <div className="flex items-center">
+                        <div className="mr-[-0.8rem]">{((basePrice/10**5)*5*car.price).toFixed(5)}</div>
                     </div>
                 </div>
             ))}

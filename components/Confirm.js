@@ -4,14 +4,6 @@ import { useContext, useEffect } from 'react'
 import { FrContext } from '@/context/context'
 import { ethers } from 'ethers'
 
-
-const style = {
-    wrapper:`flex-1 h-full flex flex-col justify-between`,
-    rideSelect:`h-full flex flex-col overflow-scroll`,
-    confirmContainer:`border-t-2 cursor-pointer z-10`,
-    button:`bg-purple-600 text-white m-4 py-4 text-center text-xl`,
-}
-
 const Confirm = () => {
     const{currAccount,pickup,dropoff,price,selectedRideType, pickupCoords, dropoffCoords, metamask} = useContext(FrContext)
 
@@ -47,14 +39,14 @@ const Confirm = () => {
     }
 
   return (
-    <div className={style.wrapper}>
-      <div className={style.rideSelect}>
+    <div className="flex-1 h-full flex flex-col justify-between">
+      <div className="h-full flex flex-col overflow-scroll">
        {pickupCoords && dropoffCoords && <Rides/>}
       </div>
-      <div className={style.confirmContainer}>
-        <div className={style.confirmContainer}>
+      <div className="border-t-2 cursor-pointer z-10">
+        <div className="`border-t-2 cursor-pointer z-10">
             <div 
-            className={style.button}
+            className="bg-purple-600 text-white m-4 py-4 text-center text-xl"
             onClick={()=>{
               if(price<correctBalance){
               storeDetails(pickup,dropoff)
