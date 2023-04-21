@@ -1,8 +1,9 @@
 import React from 'react'
 import Rides from './Rides'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { FrContext } from '@/context/context'
 import { ethers } from 'ethers'
+
 
 const style = {
     wrapper:`flex-1 h-full flex flex-col justify-between`,
@@ -14,10 +15,13 @@ const style = {
 const Confirm = () => {
     const{currAccount,pickup,dropoff,price,selectedRideType, pickupCoords, dropoffCoords, metamask} = useContext(FrContext)
 
-    var userWallet
-
- 
-
+    const Web3 = require("web3")
+    var correctBalance = undefined
+    web3 = new Web3(window.ethereum)
+    web3.eth.getBalance(currAccount, function(err,balance){
+      console.log(balance/1000000000000000000)
+      correctBalance = balance/1000000000000000000
+    })
     const storeDetails = async (pickup,dropoff) => {
       try{
         await fetch('/api/db/saveTripDetails',{
@@ -52,8 +56,12 @@ const Confirm = () => {
             <div 
             className={style.button}
             onClick={()=>{
+              if(price<correctBalance){
               storeDetails(pickup,dropoff)
-               console.log(price)}}
+               console.log(price)
+              }else{
+                console.log('Not enough money')
+              }}}
             >Confirm {selectedRideType.name}</div>
         </div>
       </div>
